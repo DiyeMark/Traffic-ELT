@@ -274,5 +274,19 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
+  mysql:
+    image: mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 3309:3306
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: traffic_flow_data
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_PASSWORD: password
+      MYSQL_USER: admin
+
 volumes:
   postgres-db-volume:
