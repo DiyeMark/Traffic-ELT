@@ -1,0 +1,12 @@
+traffic_flow:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: airflow
+      pass: airflow
+      port: 5432
+      dbname: airflow
+      schema: open_traffic_dbt
+      threads: 4
