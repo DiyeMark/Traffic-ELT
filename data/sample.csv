@@ -1,0 +1,2 @@
+track_id; type; traveled_d; avg_speed; lat; lon; speed; lon_acc; lat_acc; time
+1; Car; 48.85; 9.770344; 37.977391; 23.737688; 4.9178; 0.0518; -0.0299; 0.000000;
