@@ -1,6 +1,5 @@
 import pandas as pd
 from airflow import DAG
-from airflow.operators.bash_operator import BashOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.providers.postgres.operators.postgres import PostgresOperator
@@ -65,7 +64,8 @@ with DAG(
            """,
     )
     load_data_op = PythonOperator(
-        task_id="load_data", python_callable=insert_data
+        task_id="load_data",
+        python_callable=insert_data
     )
 
 read_data_op >> create_table_op >> load_data_op
