@@ -1,0 +1,12 @@
+
+version: 2
+
+models:
+  - name: open_traffic_details
+    description: "An open traffic dbt model"
+    columns:
+      - name: track_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
