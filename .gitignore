@@ -134,4 +134,8 @@ dmypy.json
 # Logs
 logs/
 
+# data
 /data/20181024_d1_0830_0900.csv
+
+# MacOs tempfile
+.DS_Store
