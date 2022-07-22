@@ -16,17 +16,14 @@ default_args = {
 with DAG(
     "dbt_dag",
     default_args=default_args,
-    schedule_interval="*/1 * * * *",
+    schedule_interval="@once",
     catchup=False,
 ) as dag:
-    dbt_debug = BashOperator(
-        task_id="dbt_debug", bash_command="cd ../dbt && dbt debug"
-    )
     dbt_run = BashOperator(
-        task_id="dbt_run", bash_command="cd ../dbt && dbt run"
+        task_id="dbt_run", bash_command="dbt run --profiles-dir /opt/airflow/dbt --project-dir /opt/airflow/dbt"
     )
     dbt_test = BashOperator(
-        task_id="dbt_test", bash_command="cd ../dbt && dbt test"
+        task_id="dbt_test", bash_command="dbt test --profiles-dir /opt/airflow/dbt --project-dir /opt/airflow/dbt"
     )
 
-dbt_debug >> dbt_run >> dbt_test
+dbt_run >> dbt_test

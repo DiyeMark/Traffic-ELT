@@ -47,21 +47,18 @@ with DAG(
     create_table_op = PostgresOperator(
         task_id="create_table",
         postgres_conn_id="postgres_localhost",
-        sql="""
-            create table if not exists open_traffic (
-                   track_id INT NOT NULL,
-                   type TEXT DEFAULT NULL,
-                   traveled_d FLOAT DEFAULT NULL,
-                   avg_speed FLOAT DEFAULT NULL, 
-                   lat FLOAT DEFAULT NULL,
-                   lon FLOAT DEFAULT NULL,
-                   speed FLOAT DEFAULT NULL,
-                   lon_acc FLOAT DEFAULT NULL,
-                   lat_acc FLOAT DEFAULT NULL,
-                   time FLOAT NULL DEFAULT NULL,
-                   primary key (track_id)
-               )
-           """,
+        sql="""create table if not exists open_traffic (
+        track_id INT NOT NULL,
+        type TEXT DEFAULT NULL,
+        traveled_d FLOAT DEFAULT NULL,
+        avg_speed FLOAT DEFAULT NULL,
+        lat FLOAT DEFAULT NULL,
+        lon FLOAT DEFAULT NULL,
+        speed FLOAT DEFAULT NULL,
+        lon_acc FLOAT DEFAULT NULL,
+        lat_acc FLOAT DEFAULT NULL,
+        time FLOAT NULL DEFAULT NULL,
+        primary key (track_id))""",
     )
     load_data_op = PythonOperator(
         task_id="load_data",
