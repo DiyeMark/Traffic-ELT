@@ -25,5 +25,9 @@ with DAG(
     dbt_test = BashOperator(
         task_id="dbt_test", bash_command="dbt test --profiles-dir /opt/airflow/dbt --project-dir /opt/airflow/dbt"
     )
+    dbt_doc_gen = BashOperator(
+        task_id="dbt_doc_gen", bash_command="dbt docs generate --profiles-dir /opt/airflow/dbt --project-dir "
+                                            "/opt/airflow/dbt"
+    )
 
-dbt_run >> dbt_test
+dbt_run >> dbt_test >> dbt_doc_gen
