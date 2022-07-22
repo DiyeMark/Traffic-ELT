@@ -6,17 +6,79 @@ from airflow.providers.postgres.operators.postgres import PostgresOperator
 from datetime import datetime, timedelta
 
 
+def split_into_chunks(arr, n):
+    return [arr[i: i + n] for i in range(0, len(arr), n)]
+
+
 def read_data():
-    df = pd.read_csv('/opt/airflow/data/20181024_d1_0830_0900.csv', sep='[,;:]', index_col=False)
-    return df.shape
+    df = pd.read_csv('/opt/airflow/data/20181024_d1_0830_0900.csv', skiprows=1, header=None, delimiter="\n")
+    series = df[0].str.split(";")
+    pd_lines = []
+
+    for line in series:
+        old_line = [item.strip() for item in line]
+        info_index = 4
+        info = old_line[:info_index]
+        remaining = old_line[info_index:-1]
+        chunks = split_into_chunks(remaining, 6)
+        for chunk in chunks:
+            record = info + chunk
+            pd_lines.append(record)
+
+    new_df = pd.DataFrame(
+        pd_lines,
+        columns=[
+            "track_id",
+            "type",
+            "traveled_d",
+            "avg_speed",
+            "lat",
+            "lon",
+            "speed",
+            "lon_acc",
+            "lat_acc",
+            "time",
+        ],
+    )
+
+    return new_df.shape
 
 
 def insert_data():
     pg_hook = PostgresHook(postgres_conn_id="postgres_localhost")
     conn = pg_hook.get_sqlalchemy_engine()
-    df = pd.read_csv("/opt/airflow/data/20181024_d1_0830_0900.csv", sep='[,;:]', index_col=False)
 
-    df.to_sql(
+    df = pd.read_csv('/opt/airflow/data/20181024_d1_0830_0900.csv', skiprows=1, header=None, delimiter="\n")
+    series = df[0].str.split(";")
+    pd_lines = []
+
+    for line in series:
+        old_line = [item.strip() for item in line]
+        info_index = 4
+        info = old_line[:info_index]
+        remaining = old_line[info_index:-1]
+        chunks = split_into_chunks(remaining, 6)
+        for chunk in chunks:
+            record = info + chunk
+            pd_lines.append(record)
+
+    new_df = pd.DataFrame(
+        pd_lines,
+        columns=[
+            "track_id",
+            "type",
+            "traveled_d",
+            "avg_speed",
+            "lat",
+            "lon",
+            "speed",
+            "lon_acc",
+            "lat_acc",
+            "time",
+        ],
+    )
+
+    new_df.to_sql(
         "open_traffic",
         con=conn,
         if_exists="replace",
@@ -38,7 +100,7 @@ default_args = {
 with DAG(
         "load_dag",
         default_args=default_args,
-        schedule_interval="*/1 * * * *",
+        schedule_interval="0 * * * *",
         catchup=False,
 ) as dag:
     read_data_op = PythonOperator(
@@ -48,6 +110,7 @@ with DAG(
         task_id="create_table",
         postgres_conn_id="postgres_localhost",
         sql="""create table if not exists open_traffic (
+        id SERIAL,
         track_id INT NOT NULL,
         type TEXT DEFAULT NULL,
         traveled_d FLOAT DEFAULT NULL,
@@ -58,7 +121,7 @@ with DAG(
         lon_acc FLOAT DEFAULT NULL,
         lat_acc FLOAT DEFAULT NULL,
         time FLOAT NULL DEFAULT NULL,
-        primary key (track_id))""",
+        primary key (id))""",
     )
     load_data_op = PythonOperator(
         task_id="load_data",
