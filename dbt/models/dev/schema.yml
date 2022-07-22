@@ -5,7 +5,7 @@ models:
   - name: open_traffic_details
     description: "An open traffic dbt model"
     columns:
-      - name: track_id
+      - name: id
         description: "The primary key for this table"
         tests:
           - unique

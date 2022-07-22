@@ -12,5 +12,4 @@ select *
 from open_traffic_new
 */
 
-select * from open_traffic where type = ' Car'
-
+select * from open_traffic where type = 'Car'
