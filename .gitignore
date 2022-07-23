@@ -139,3 +139,6 @@ logs/
 
 # MacOs tempfile
 .DS_Store
+
+# env
+.env
