@@ -4,6 +4,7 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from datetime import datetime, timedelta
+from sqlalchemy.types import Integer, Numeric, String
 
 
 def split_into_chunks(arr, n):
@@ -82,7 +83,19 @@ def insert_data():
         "open_traffic",
         con=conn,
         if_exists="replace",
-        index=False,
+        index=True,
+        index_label="id",
+        dtype={
+            "track_id": Integer(),
+            "traveled_d": Numeric(),
+            "avg_speed": Numeric(),
+            "lat": Numeric(),
+            "lon": Numeric(),
+            "speed": Numeric(),
+            "lon_acc": Numeric(),
+            "lat_acc": Numeric(),
+            "time": Numeric(),
+        },
     )
 
 
@@ -109,19 +122,21 @@ with DAG(
     create_table_op = PostgresOperator(
         task_id="create_table",
         postgres_conn_id="postgres_localhost",
-        sql="""create table if not exists open_traffic (
-        id SERIAL,
-        track_id INT NOT NULL,
-        type TEXT DEFAULT NULL,
-        traveled_d FLOAT DEFAULT NULL,
-        avg_speed FLOAT DEFAULT NULL,
-        lat FLOAT DEFAULT NULL,
-        lon FLOAT DEFAULT NULL,
-        speed FLOAT DEFAULT NULL,
-        lon_acc FLOAT DEFAULT NULL,
-        lat_acc FLOAT DEFAULT NULL,
-        time FLOAT NULL DEFAULT NULL,
-        primary key (id))""",
+        sql="""
+            create table if not exists open_traffic (
+                id serial,
+                track_id integer,
+                type text,
+                traveled_d numeric,
+                avg_speed numeric,
+                lat numeric,
+                lon numeric,
+                speed numeric,
+                lon_acc numeric,
+                lat_acc numeric,
+                time numeric
+            )
+            """,
     )
     load_data_op = PythonOperator(
         task_id="load_data",
