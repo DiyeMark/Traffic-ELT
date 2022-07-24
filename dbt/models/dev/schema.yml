@@ -1,12 +1,483 @@
-
 version: 2
 
 models:
-  - name: open_traffic_details
-    description: "An open traffic dbt model"
-    columns:
-      - name: id
-        description: "The primary key for this table"
-        tests:
-          - unique
-          - not_null
+    - name: open_traffic_all
+      description: "An open traffic dbt model"
+      columns:
+        - name: id
+          description: "The primary key for this table"
+          tests:
+            - unique
+            - not_null
+        - name: track_id
+          description: "The track id of the traffic"
+          tests:
+            - not_null
+        - name: type
+          description: "The type of the vehicle"
+          tests:
+            - not_null
+        - name: traveled_d
+          description: "The traveled distance of the vehicle in meters"
+          tests:
+            - not_null
+        - name: avg_speed
+          description: "The average speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat
+          description: "The latitude of the vehicle"
+          tests:
+            - not_null
+        - name: lon
+          description: "The longitude of the vehicle"
+          tests:
+            - not_null
+        - name: speed
+          description: "The speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat_acc
+          description: "The latitude acceleration of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: lon_acc
+          description: "The longitude acceleration distance of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: time
+          description: "The time in seconds"
+          tests:
+            - not_null
+    - name: type_car
+      description: "An open traffic dbt model with type = Car"
+      columns:
+          - name: id
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+          - name: track_id
+            description: "The track id of the traffic"
+            tests:
+              - not_null
+          - name: type
+            description: "The type of the vehicle"
+            tests:
+              - not_null
+          - name: traveled_d
+            description: "The traveled distance of the vehicle in meters"
+            tests:
+              - not_null
+          - name: avg_speed
+            description: "The average speed of the vehicle in km/h"
+            tests:
+              - not_null
+          - name: lat
+            description: "The latitude of the vehicle"
+            tests:
+              - not_null
+          - name: lon
+            description: "The longitude of the vehicle"
+            tests:
+              - not_null
+          - name: speed
+            description: "The speed of the vehicle in km/h"
+            tests:
+              - not_null
+          - name: lat_acc
+            description: "The latitude acceleration of the vehicle in m/sec2"
+            tests:
+              - not_null
+          - name: lon_acc
+            description: "The longitude acceleration distance of the vehicle in m/sec2"
+            tests:
+              - not_null
+          - name: time
+            description: "The time in seconds"
+            tests:
+              - not_null
+    - name: cars
+      description: "An dbt model for Car types"
+      columns:
+        - name: id
+          description: "The primary key for this table"
+          tests:
+            - unique
+            - not_null
+        - name: track_id
+          description: "The track id of the traffic"
+          tests:
+            - not_null
+        - name: type
+          description: "The type of the vehicle"
+          tests:
+            - not_null
+        - name: traveled_d
+          description: "The traveled distance of the vehicle in meters"
+          tests:
+            - not_null
+        - name: avg_speed
+          description: "The average speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat
+          description: "The latitude of the vehicle"
+          tests:
+            - not_null
+        - name: lon
+          description: "The longitude of the vehicle"
+          tests:
+            - not_null
+        - name: speed
+          description: "The speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat_acc
+          description: "The latitude acceleration of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: lon_acc
+          description: "The longitude acceleration distance of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: time
+          description: "The time in seconds"
+          tests:
+            - not_null
+    - name: type_taxi
+      description: "An open traffic dbt model with type = Taxi"
+      columns:
+        - name: id
+          description: "The primary key for this table"
+          tests:
+            - unique
+            - not_null
+        - name: track_id
+          description: "The track id of the traffic"
+          tests:
+            - not_null
+        - name: type
+          description: "The type of the vehicle"
+          tests:
+            - not_null
+        - name: traveled_d
+          description: "The traveled distance of the vehicle in meters"
+          tests:
+            - not_null
+        - name: avg_speed
+          description: "The average speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat
+          description: "The latitude of the vehicle"
+          tests:
+            - not_null
+        - name: lon
+          description: "The longitude of the vehicle"
+          tests:
+            - not_null
+        - name: speed
+          description: "The speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat_acc
+          description: "The latitude acceleration of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: lon_acc
+          description: "The longitude acceleration distance of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: time
+          description: "The time in seconds"
+          tests:
+            - not_null
+    - name: type_bus
+      description: "An open traffic dbt model with type = Bus"
+      columns:
+        - name: id
+          description: "The primary key for this table"
+          tests:
+            - unique
+            - not_null
+        - name: track_id
+          description: "The track id of the traffic"
+          tests:
+            - not_null
+        - name: type
+          description: "The type of the vehicle"
+          tests:
+            - not_null
+        - name: traveled_d
+          description: "The traveled distance of the vehicle in meters"
+          tests:
+            - not_null
+        - name: avg_speed
+          description: "The average speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat
+          description: "The latitude of the vehicle"
+          tests:
+            - not_null
+        - name: lon
+          description: "The longitude of the vehicle"
+          tests:
+            - not_null
+        - name: speed
+          description: "The speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat_acc
+          description: "The latitude acceleration of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: lon_acc
+          description: "The longitude acceleration distance of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: time
+          description: "The time in seconds"
+          tests:
+            - not_null
+    - name: type_motorcycle
+      description: "An open traffic dbt model with type = Motor Cycle"
+      columns:
+        - name: id
+          description: "The primary key for this table"
+          tests:
+            - unique
+            - not_null
+        - name: track_id
+          description: "The track id of the traffic"
+          tests:
+            - not_null
+        - name: type
+          description: "The type of the vehicle"
+          tests:
+            - not_null
+        - name: traveled_d
+          description: "The traveled distance of the vehicle in meters"
+          tests:
+            - not_null
+        - name: avg_speed
+          description: "The average speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat
+          description: "The latitude of the vehicle"
+          tests:
+            - not_null
+        - name: lon
+          description: "The longitude of the vehicle"
+          tests:
+            - not_null
+        - name: speed
+          description: "The speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat_acc
+          description: "The latitude acceleration of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: lon_acc
+          description: "The longitude acceleration distance of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: time
+          description: "The time in seconds"
+          tests:
+            - not_null
+    - name: type_medium_vehicle
+      description: "An open traffic dbt model with type = Medium Vehicle"
+      columns:
+        - name: id
+          description: "The primary key for this table"
+          tests:
+            - unique
+            - not_null
+        - name: track_id
+          description: "The track id of the traffic"
+          tests:
+            - not_null
+        - name: type
+          description: "The type of the vehicle"
+          tests:
+            - not_null
+        - name: traveled_d
+          description: "The traveled distance of the vehicle in meters"
+          tests:
+            - not_null
+        - name: avg_speed
+          description: "The average speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat
+          description: "The latitude of the vehicle"
+          tests:
+            - not_null
+        - name: lon
+          description: "The longitude of the vehicle"
+          tests:
+            - not_null
+        - name: speed
+          description: "The speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat_acc
+          description: "The latitude acceleration of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: lon_acc
+          description: "The longitude acceleration distance of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: time
+          description: "The time in seconds"
+          tests:
+            - not_null
+    - name: type_heavy_vehicle
+      description: "An open traffic dbt model with type = Heavy Vehicle"
+      columns:
+        - name: id
+          description: "The primary key for this table"
+          tests:
+            - unique
+            - not_null
+        - name: track_id
+          description: "The track id of the traffic"
+          tests:
+            - not_null
+        - name: type
+          description: "The type of the vehicle"
+          tests:
+            - not_null
+        - name: traveled_d
+          description: "The traveled distance of the vehicle in meters"
+          tests:
+            - not_null
+        - name: avg_speed
+          description: "The average speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat
+          description: "The latitude of the vehicle"
+          tests:
+            - not_null
+        - name: lon
+          description: "The longitude of the vehicle"
+          tests:
+            - not_null
+        - name: speed
+          description: "The speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat_acc
+          description: "The latitude acceleration of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: lon_acc
+          description: "The longitude acceleration distance of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: time
+          description: "The time in seconds"
+          tests:
+            - not_null
+    - name: speed_above
+      description: "An open traffic model with avg_speed > 50.0"
+      columns:
+        - name: id
+          description: "The primary key for this table"
+          tests:
+            - unique
+            - not_null
+        - name: track_id
+          description: "The track id of the traffic"
+          tests:
+            - not_null
+        - name: type
+          description: "The type of the vehicle"
+          tests:
+            - not_null
+        - name: traveled_d
+          description: "The traveled distance of the vehicle in meters"
+          tests:
+            - not_null
+        - name: avg_speed
+          description: "The average speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat
+          description: "The latitude of the vehicle"
+          tests:
+            - not_null
+        - name: lon
+          description: "The longitude of the vehicle"
+          tests:
+            - not_null
+        - name: speed
+          description: "The speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat_acc
+          description: "The latitude acceleration of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: lon_acc
+          description: "The longitude acceleration distance of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: time
+          description: "The time in seconds"
+          tests:
+            - not_null
+    - name: speed_below
+      description: "An open traffic model with avg_speed <= 50.0"
+      columns:
+        - name: id
+          description: "The primary key for this table"
+          tests:
+            - unique
+            - not_null
+        - name: track_id
+          description: "The track id of the traffic"
+          tests:
+            - not_null
+        - name: type
+          description: "The type of the vehicle"
+          tests:
+            - not_null
+        - name: traveled_d
+          description: "The traveled distance of the vehicle in meters"
+          tests:
+            - not_null
+        - name: avg_speed
+          description: "The average speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat
+          description: "The latitude of the vehicle"
+          tests:
+            - not_null
+        - name: lon
+          description: "The longitude of the vehicle"
+          tests:
+            - not_null
+        - name: speed
+          description: "The speed of the vehicle in km/h"
+          tests:
+            - not_null
+        - name: lat_acc
+          description: "The latitude acceleration of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: lon_acc
+          description: "The longitude acceleration distance of the vehicle in m/sec2"
+          tests:
+            - not_null
+        - name: time
+          description: "The time in seconds"
+          tests:
+            - not_null
