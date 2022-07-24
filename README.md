@@ -18,7 +18,7 @@
   <p align="center">
     A dockerized ELT pipeline.
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://open-traffic-dbt-doc.netlify.app"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/DiyeMark/Traffic-ELT/issues">Report Bug</a>
