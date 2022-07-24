@@ -1,3 +1,3 @@
-{{ config(materialized='table') }}
+{{ config(materialized='view') }}
 
-select * from open_traffic where avg_speed > 50.0
+select * from {{ ref('open_traffic_all') }} where avg_speed > 50.0
