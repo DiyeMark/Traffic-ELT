@@ -16,7 +16,7 @@ default_args = {
 with DAG(
     "dbt_dag",
     default_args=default_args,
-    schedule_interval="@once",
+    schedule_interval="0 * * * *",
     catchup=False,
 ) as dag:
     dbt_run = BashOperator(
