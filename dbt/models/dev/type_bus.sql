@@ -1,3 +1,3 @@
 {{ config(materialized='table') }}
 
-select * from open_traffic where type = 'Bus'
+select * from {{ ref('open_traffic_all') }} where type = 'Bus'
